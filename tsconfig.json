@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"lib": ["DOM", "ES2015"],
-		"moduleResolution": "Node",
+		"lib": ["DOM", "es2016"],
+		"moduleResolution": "Bundler",
 		"strict": true,
 		"target": "ES6"
 	}

@@ -1,21 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<title></title>
+		<script type="importmap">
+			{
+				"imports": {
+					"tweakpane": "../node_modules/tweakpane/dist/tweakpane.js",
+					"@tweakpane/core": "../node_modules/@tweakpane/core/dist/index.js",
+					"tweakpane-plugin-file-import": "../dist/tweakpane-plugin-file-import.js"
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<script type="module">
-			import {Pane} from '../node_modules/tweakpane/dist/tweakpane.js';
-			import * as TweakpaneFileImportPlugin from '../dist/tweakpane-plugin-file-import.js';
+			import * as Tweakpane from 'tweakpane';
+			import * as TweakpanePluginFileImport from 'tweakpane-plugin-file-import';
 
 			const params = {
 				file: '',
 			};
-			const pane = new Pane();
+			const pane = new Tweakpane.Pane();
 
 			// Register plugin
-			pane.registerPlugin(TweakpaneFileImportPlugin);
+			pane.registerPlugin(TweakpanePluginFileImport);
 
 			pane
 				.addBinding(params, 'file', {
