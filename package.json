@@ -2,15 +2,22 @@
 	"name": "@kitschpatrol/tweakpane-plugin-file-import",
 	"version": "1.1.2-beta.2",
 	"type": "module",
-	"description": "A fork of tweakpane-plugin-file-import with build optimizations.",
+	"description": "Fork of tweakpane-plugin-file-import with build optimizations.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/kitschpatrol/tweakpane-plugin-image.git"
 	},
 	"homepage": "https://github.com/kitschpatrol/tweakpane-plugin-file-import",
 	"author": "LuchoTurtle",
+	"maintainers": [
+		{
+			"name": "Eric Mika",
+			"email": "eric@ericmika.com",
+			"url": "https://ericmika.com"
+		}
+	],
 	"license": "MIT",
-	"packageManager": "pnpm@10.5.2",
+	"packageManager": "pnpm@12.11.2",
 	"engines": {
 		"node": ">=18.0.0"
 	},
@@ -35,12 +42,12 @@
 		"format:ts": "eslint --fix \"src/**/*.ts\"",
 		"prepare": "run-s clean build",
 		"prepublishOnly": "npm test",
-		"release": "bumpp --commit 'Release: %s' --tag '%s' && pnpm run build && pnpm publish --tag latest --otp $(op read 'op://Personal/Npmjs/one-time password?attribute=otp')",
+		"release": "bumpp --commit 'Release: %s' --tag '%s' && pnpm build && NPM_TOKEN=$(op read 'op://Personal/npm/token') pnpm publish --tag latest",
 		"server": "http-server -c-1 -o /test/browser.html",
 		"start": "run-p watch server",
 		"test": "eslint \"src/**/*.ts\"",
 		"watch": "run-p watch:*",
-		"watch:sass": "onchange --initial --kill \"src/sass/**/*.scss\" -- npm run build:dev",
+		"watch:sass": "onchange --initial --kill \"src/sass/**/*.scss\" -- pnpm run build:dev",
 		"watch:ts": "onchange --initial --kill \"src/**/*.ts\" -- rollup --config rollup.config.js"
 	},
 	"peerDependencies": {
