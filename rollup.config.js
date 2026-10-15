@@ -2,20 +2,20 @@
 
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Replace from '@rollup/plugin-replace';
+import Terser from '@rollup/plugin-terser';
 import Typescript from '@rollup/plugin-typescript';
 import Autoprefixer from 'autoprefixer';
 import Postcss from 'postcss';
 import Cleanup from 'rollup-plugin-cleanup';
-import terser from '@rollup/plugin-terser';
-import Sass from 'sass';
+import {compile as sassCompile} from 'sass';
 
 async function compileCss() {
-	const css = Sass.renderSync({
-		file: 'src/sass/plugin.scss',
-		outputStyle: 'compressed',
-	}).css.toString();
+	const compiled = sassCompile('src/sass/plugin.scss', {
+		style: 'compressed',
+		silenceDeprecations: ['import', 'global-builtin', 'color-functions'],
+	});
 
-	const result = await Postcss([Autoprefixer]).process(css, {
+	const result = await Postcss([Autoprefixer]).process(compiled.css, {
 		from: undefined,
 	});
 	return result.css.replace(/'/g, "\\'").trim();
@@ -33,7 +33,7 @@ function getPlugins(css, shouldMinify) {
 		}),
 	];
 	if (shouldMinify) {
-		plugins.push(terser());
+		plugins.push(Terser());
 	}
 	return [
 		...plugins,
