@@ -160,20 +160,30 @@ export class FilePluginController implements Controller<FilePluginView> {
 	 * @param event Drag event.
 	 */
 	private onDrop(event: DragEvent) {
-		if (event instanceof DragEvent) {
+		try {
+			if (!(event instanceof DragEvent)) {
+				return
+			}
+
 			event.preventDefault()
 			const files = event.dataTransfer?.files
-			const file = files?.length === 1 ? files.item(0) : null
-			if (file) {
-				if (this.isFileValid(file)) {
-					this.value.setRawValue(file)
-				} else {
-					this.showWarning()
-				}
+			if (files?.length !== 1) {
+				return
 			}
-		}
 
-		this.view.changeDraggingState(false)
+			const file = files.item(0)
+			if (!file) {
+				return
+			}
+
+			if (this.isFileValid(file)) {
+				this.value.setRawValue(file)
+			} else {
+				this.showWarning()
+			}
+		} finally {
+			this.view.changeDraggingState(false)
+		}
 	}
 
 	/**
