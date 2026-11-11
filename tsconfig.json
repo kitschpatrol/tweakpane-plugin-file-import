@@ -1,8 +1,10 @@
 {
 	"extends": "@kitschpatrol/typescript-config",
 	"compilerOptions": {
+		// Keep source syntax and APIs within the ES2022 browser build target.
 		"target": "ES2022",
 		"lib": ["ES2022", "DOM"],
+		// Vite's client types declare the ?inline import used for the plugin styles.
 		"types": ["node", "vite/client"]
 	}
 }
