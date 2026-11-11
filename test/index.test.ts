@@ -117,6 +117,13 @@ describe('file input plugin', () => {
 		expect(warning.style.display).toBe('none')
 	})
 
+	it('shows the invalid filetype message as plain text', () => {
+		const { button, warning } = setup({ invalidFiletypeMessage: '<b>Images</b> only' })
+		expect(warning.textContent).toBe('<b>Images</b> only')
+		expect(warning.querySelector('b')).toBeNull()
+		expect(button.textContent).toBe('Delete')
+	})
+
 	it('uses default params when none are given', () => {
 		const { input, warning } = setup()
 		expect(input.accept).toBe('*')

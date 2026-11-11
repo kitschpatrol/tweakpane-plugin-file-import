@@ -53,13 +53,13 @@ export class FilePluginView implements View {
 		// Warning text
 		this.warning = doc.createElement('span')
 		this.warning.classList.add(containerClassName('warning'))
-		this.warning.innerHTML = config.invalidFiletypeMessage
+		this.warning.textContent = config.invalidFiletypeMessage
 		this.warning.style.display = 'none'
 
 		// Delete button
 		this.clearButton = doc.createElement('button')
 		this.clearButton.classList.add(buttonClassName('b'))
-		this.clearButton.innerHTML = 'Delete'
+		this.clearButton.textContent = 'Delete'
 		this.clearButton.style.display = 'none'
 
 		this.container.append(this.input)

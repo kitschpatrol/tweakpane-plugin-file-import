@@ -95,7 +95,7 @@ Both entries share the `dist/tweakpane-plugin-file-import.d.ts` declarations, so
 | File                                     | Original | Gzip   | Brotli |
 | ---------------------------------------- | -------- | ------ | ------ |
 | tweakpane-plugin-file-import.js          | 14.5 kB  | 4.1 kB | 3.5 kB |
-| tweakpane-plugin-file-import.min.js      | 8.2 kB   | 2.7 kB | 2.3 kB |
+| tweakpane-plugin-file-import.min.js      | 8.2 kB   | 2.6 kB | 2.3 kB |
 | tweakpane-plugin-file-import.lite.js     | 9.8 kB   | 2.9 kB | 2.4 kB |
 | tweakpane-plugin-file-import.lite.min.js | 6.7 kB   | 2.1 kB | 1.8 kB |
 
