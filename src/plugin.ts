@@ -1,91 +1,73 @@
-import {
-	BaseInputParams,
-	BindingTarget,
-	CompositeConstraint,
-	createPlugin,
-	InputBindingPlugin,
-	parseRecord,
-} from '@tweakpane/core';
+import type { BaseInputParams, BindingTarget, InputBindingPlugin } from '@tweakpane/core'
+import { CompositeConstraint, createPlugin, parseRecord } from '@tweakpane/core'
+import { FilePluginController } from './controller/controller'
 
-import {FilePluginController} from './controller/controller.js';
-
-export interface PluginInputParams extends BaseInputParams {
-	view: 'file-input';
-	invalidFiletypeMessage?: string;
-	lineCount?: number;
-	filetypes?: string[];
+export type PluginInputParams = BaseInputParams & {
+	filetypes?: string[]
+	invalidFiletypeMessage?: string
+	lineCount?: number
+	view: 'file-input'
 }
 
-export const TweakpaneFileInputPlugin: InputBindingPlugin<
-	File | null,
-	string,
-	PluginInputParams
-> = createPlugin({
-	id: 'file-input',
+function readFile(exValue: unknown): File | null {
+	return exValue instanceof File ? exValue : null
+}
 
-	// type: The plugin type.
-	type: 'input',
+function writeFile(target: BindingTarget, inValue: File | null): void {
+	target.write(inValue)
+}
 
-	accept(exValue: unknown, params: Record<string, unknown>) {
-		if (typeof exValue !== 'string') {
-			// Return null to deny the user input
-			return null;
-		}
+export const TweakpaneFileInputPlugin: InputBindingPlugin<File | null, string, PluginInputParams> =
+	createPlugin({
+		accept(exValue: unknown, params: Record<string, unknown>) {
+			if (typeof exValue !== 'string') {
+				// Return null to deny the user input
+				return null
+			}
 
-		// Parse parameters object
-		const result = parseRecord<PluginInputParams>(params, (p) => ({
-			// `view` option may be useful to provide a custom control for primitive values
-			view: p.required.constant('file-input'),
+			// Parse parameters object
+			const result = parseRecord<PluginInputParams>(params, (p) => ({
+				filetypes: p.optional.array(p.required.string),
+				invalidFiletypeMessage: p.optional.string,
+				lineCount: p.optional.number,
+				// `view` option may be useful to provide a custom control for primitive values
+				view: p.required.constant('file-input'),
+			}))
+			if (!result) {
+				return null
+			}
 
-			invalidFiletypeMessage: p.optional.string,
-			lineCount: p.optional.number,
-			filetypes: p.optional.array(p.required.string),
-		}));
-		if (!result) {
-			return null;
-		}
-
-		// Return a typed value and params to accept the user input
-		return {
-			initialValue: exValue,
-			params: result,
-		};
-	},
-
-	binding: {
-		reader(_args) {
-			return (exValue: unknown): File | null => {
-				// Convert an external unknown value into the internal value
-				return exValue instanceof File ? exValue : null;
-			};
+			// Return a typed value and params to accept the user input
+			return {
+				initialValue: exValue,
+				params: result,
+			}
 		},
-
-		constraint(_args) {
-			return new CompositeConstraint([]);
+		binding: {
+			constraint(_args) {
+				return new CompositeConstraint([])
+			},
+			reader(_args) {
+				return readFile
+			},
+			writer(_args) {
+				return writeFile
+			},
 		},
+		controller(args) {
+			const defaultNumberOfLines = 3
+			const defaultFiletypeWarningText = 'Unaccepted file type.'
 
-		writer(_args) {
-			return (target: BindingTarget, inValue) => {
-				// Use `target.write()` to write the primitive value to the target,
-				// or `target.writeProperty()` to write a property of the target
-				target.write(inValue);
-			};
+			// Create a controller for the plugin
+			return new FilePluginController(args.document, {
+				filetypes: args.params.filetypes,
+				invalidFiletypeMessage: args.params.invalidFiletypeMessage ?? defaultFiletypeWarningText,
+				lineCount: args.params.lineCount ?? defaultNumberOfLines,
+				value: args.value,
+				viewProps: args.viewProps,
+			})
 		},
-	},
-
-	controller(args) {
-		const defaultNumberOfLines = 3;
-		const defaultFiletypeWarningText = 'Unaccepted file type.';
-
-		// Create a controller for the plugin
-		return new FilePluginController(args.document, {
-			value: args.value,
-			viewProps: args.viewProps,
-
-			invalidFiletypeMessage:
-				args.params.invalidFiletypeMessage ?? defaultFiletypeWarningText,
-			lineCount: args.params.lineCount ?? defaultNumberOfLines,
-			filetypes: args.params.filetypes,
-		});
-	},
-});
+		id: 'file-input',
+		// Type: The plugin type.
+		type: 'input',
+	})

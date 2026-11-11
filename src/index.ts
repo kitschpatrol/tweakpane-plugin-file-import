@@ -1,6 +1,7 @@
-import {TweakpaneFileInputPlugin} from './plugin.js';
+import { TweakpaneFileInputPlugin } from './plugin'
+import pluginCss from './styles/plugin.scss?inline'
 
 // Export your plugin(s) as constant `plugins`
-export const id = 'file-input';
-export const css = '__css__';
-export const plugins = [TweakpaneFileInputPlugin];
+export const id = 'file-input'
+export const css: string = pluginCss
+export const plugins = [TweakpaneFileInputPlugin]

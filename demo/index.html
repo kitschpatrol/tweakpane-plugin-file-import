@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="UTF-8" />
+		<title>Tweakpane file-import demo</title>
+	</head>
+	<body>
+		<script type="module">
+			import * as Tweakpane from 'tweakpane'
+			import * as TweakpanePluginFileImport from '../src/index.ts'
+
+			const params = {
+				file: '',
+			}
+			const pane = new Tweakpane.Pane()
+
+			// Register plugin
+			pane.registerPlugin(TweakpanePluginFileImport)
+
+			pane
+				.addBinding(params, 'file', {
+					view: 'file-input',
+					invalidFiletypeMessage: "We can't accept those filetypes!",
+					lineCount: 3,
+					filetypes: ['.png', '.jpeg'],
+				})
+				.on('change', (ev) => {
+					console.log(ev.value)
+				})
+
+			window.pane = pane
+		</script>
+	</body>
+</html>

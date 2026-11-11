@@ -1,9 +1,8 @@
 {
+	"extends": "@kitschpatrol/typescript-config",
 	"compilerOptions": {
-		"lib": ["DOM", "ES2017"],
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"strict": true,
-		"target": "ES2017"
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"types": ["node", "vite/client"]
 	}
 }
