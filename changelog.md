@@ -5,65 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.2.0-fork.3] - 2026-11-12
+
+### Fixed
+
+- Scope delete-button spacing to the file input so other Tweakpane buttons no longer receive an extra top margin.
+
+### Maintenance
+
+- Update the Sass and Vite development requirements to `^1.108.2` and `^8.3.8`.
+
+## [1.2.0-fork.2] - 2026-11-11
 
 ### Added
 
-- Add `/lite` and minified lite builds with externalized `@tweakpane/core`, while default builds bundle core.
+- Add `/lite` and minified lite builds with externalized `@tweakpane/core`.
 - Export `PluginInputParams` from the package root and `/lite`.
 
 ### Changed
 
-- **Breaking:** Publish the fork under the scoped package name `@kitschpatrol/tweakpane-plugin-file-import`.
-- **Breaking:** Externalize `@tweakpane/core` as a runtime dependency requiring `^2.0.5`; direct browser imports now need an import map.
-- **Breaking:** Declare Node.js 18+ as a package installation requirement.
+- Bundle `@tweakpane/core` in the default builds; use `/lite` to share core with other plugins.
 - **Breaking:** Restrict package exports to the root, `/lite`, and `/package.json`, and move declarations to `dist/tweakpane-plugin-file-import.d.ts`.
 - **Breaking:** Raise the distributed JavaScript target from ES2017 to ES2022.
 - **Breaking:** Restrict the declared Node.js installation range to 18, 20, 22, 24, and 26+.
 
 ### Fixed
 
-- Emit declarations under the package's `dist/types` directory and set the source root so the advertised TypeScript entry point is included.
 - Clear the drag highlight even when processing a dropped file throws.
 - Render `invalidFiletypeMessage` as plain text so markup is displayed literally.
 - Type the exported `css` value as `string` instead of the build placeholder literal.
-- Scope delete-button spacing to the file input so other Tweakpane buttons no longer receive an extra top margin.
 
 ### Documentation
 
-- Document the fork, external dependency/import-map setup, `-fork.N` versioning, and upstream and fork license attribution.
 - Restore scoped-package installation and Tweakpane 4 usage examples, explain `/lite` dependency handling, and update contribution guidance.
 - Move the browser example to a Vite demo that loads plugin source directly.
 
 ### Maintenance
 
-- Refresh development dependencies, including TypeScript 6 and ESLint 10, update pnpm to 12.16.1, remove obsolete tooling, and declare contributor Node.js requirements.
-- Use pnpm/shx task scripts and Rollup watch mode, recompiling inlined CSS when Sass sources or imports change.
-- Add missing `tslib`, configure pnpm native builds, and generate and validate README metadata with mdat.
-- Replace upstream CI and Dependabot with release/metadata workflows, scheduled link checks, and weekly upstream fork synchronization.
-- Switch releases to bumpp with fork suffixes, require tests/builds before publishing, and update npm authentication to use one-time passwords.
-- Correct the package repository URL and update author and maintainer metadata.
 - Replace Rollup with tsdown for JavaScript, declarations, inline SCSS, and watch builds, with `publint` and Are the Types Wrong package checks.
 - Adopt shared `ksc` linting, formatting, type and dependency checks, with matching VS Code settings and tasks.
 - Add Vitest coverage using happy-dom for plugin registration, styles, file selection and drops, validation, clearing, refresh, and disposal.
 - Add Linux, macOS, and Windows CI builds running lint and tests on Node.js 24.
 - Add a monthly dependency-maintenance workflow that opens pull requests using `ksc-update`.
 - Integrate `chagent` into release version bumps and refresh GitHub release actions.
-- Build releases after versioning, remove the release script's test step, and remove the install-time `prepare` build hook.
-- Update pnpm to 12.18.0 and refresh the tsdown, Sass, Vite, and Vitest development dependencies.
-- Update the Sass and Vite development requirements to `^1.108.2` and `^8.3.8`.
-
-## [1.2.0] - 2026-02-24
-
-### Fixed
-
-- Declare `type: module` to match the package's existing ES module output.
-
-### Maintenance
-
-- Refresh development dependencies, including ESLint 10 and Rollup 4, and replace the legacy Terser plugin with `@rollup/plugin-terser`.
-- Modernize Sass compilation and TypeScript module resolution, target ES2017, update asset scripts for ESM, and add dependency overrides for build warnings.
-- Update CI actions and test on Node.js 20, 22, 24, and the latest release, removing Node.js 18 from the tooling matrix.
+- Build releases after versioning and remove the install-time `prepare` build hook and the release script's test step.
+- Refresh development dependencies and update pnpm to 12.18.0.
 
 ## [1.2.0-fork.1] - 2026-10-15
 
@@ -79,6 +65,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add mdat README generation and validation, and run tests and builds before publishing fork releases.
 - Add scheduled repository/homepage link checks and upstream fork synchronization, and refresh release/metadata workflows with pinned actions.
 - Correct the package repository URL and update author and maintainer metadata.
+
+## [1.2.0] - 2026-02-24
+
+### Fixed
+
+- Declare `type: module` to match the package's existing ES module output.
+
+### Maintenance
+
+- Refresh development dependencies, including ESLint 10 and Rollup 4, and replace the legacy Terser plugin with `@rollup/plugin-terser`.
+- Modernize Sass compilation and TypeScript module resolution, target ES2017, update asset scripts for ESM, and add dependency overrides for build warnings.
+- Update CI actions and test on Node.js 20, 22, 24, and the latest release, removing Node.js 18 from the tooling matrix.
 
 ## [1.1.2-beta.2] - 2025-03-04
 
@@ -224,4 +222,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.1.2-beta.2]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.2-beta.1...1.1.2-beta.2
 [1.2.0-fork.1]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.2-beta.2...1.2.0-fork.1
 [1.2.0]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.1...1.2.0
-[Unreleased]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0...HEAD
+[1.2.0-fork.2]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0-fork.1...1.2.0-fork.2
+[1.2.0-fork.3]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0-fork.2...1.2.0-fork.3
+[Unreleased]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0-fork.3...HEAD
