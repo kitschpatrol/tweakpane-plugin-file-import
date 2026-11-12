@@ -7,19 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `/lite` and minified lite builds with externalized `@tweakpane/core`, while default builds bundle core.
+- Export `PluginInputParams` from the package root and `/lite`.
+
 ### Changed
 
 - **Breaking:** Publish the fork under the scoped package name `@kitschpatrol/tweakpane-plugin-file-import`.
 - **Breaking:** Externalize `@tweakpane/core` as a runtime dependency requiring `^2.0.5`; direct browser imports now need an import map.
 - **Breaking:** Declare Node.js 18+ as a package installation requirement.
+- **Breaking:** Restrict package exports to the root, `/lite`, and `/package.json`, and move declarations to `dist/tweakpane-plugin-file-import.d.ts`.
+- **Breaking:** Raise the distributed JavaScript target from ES2017 to ES2022.
+- **Breaking:** Restrict the declared Node.js installation range to 18, 20, 22, 24, and 26+.
 
 ### Fixed
 
 - Emit declarations under the package's `dist/types` directory and set the source root so the advertised TypeScript entry point is included.
+- Clear the drag highlight even when processing a dropped file throws.
+- Render `invalidFiletypeMessage` as plain text so markup is displayed literally.
+- Type the exported `css` value as `string` instead of the build placeholder literal.
 
 ### Documentation
 
 - Document the fork, external dependency/import-map setup, `-fork.N` versioning, and upstream and fork license attribution.
+- Restore scoped-package installation and Tweakpane 4 usage examples, explain `/lite` dependency handling, and update contribution guidance.
+- Move the browser example to a Vite demo that loads plugin source directly.
 
 ### Maintenance
 
@@ -29,6 +42,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace upstream CI and Dependabot with release/metadata workflows, scheduled link checks, and weekly upstream fork synchronization.
 - Switch releases to bumpp with fork suffixes, require tests/builds before publishing, and update npm authentication to use one-time passwords.
 - Correct the package repository URL and update author and maintainer metadata.
+- Replace Rollup with tsdown for JavaScript, declarations, inline SCSS, and watch builds, with `publint` and Are the Types Wrong package checks.
+- Adopt shared `ksc` linting, formatting, type and dependency checks, with matching VS Code settings and tasks.
+- Add Vitest coverage using happy-dom for plugin registration, styles, file selection and drops, validation, clearing, refresh, and disposal.
+- Add Linux, macOS, and Windows CI builds running lint and tests on Node.js 24.
+- Add a monthly dependency-maintenance workflow that opens pull requests using `ksc-update`.
+- Integrate `chagent` into release version bumps and refresh GitHub release actions.
+- Build releases after versioning, remove the release script's test step, and remove the install-time `prepare` build hook.
+- Update pnpm to 12.18.0 and refresh the tsdown, Sass, Vite, and Vitest development dependencies.
 
 ## [1.2.0] - 2026-02-24
 
@@ -189,7 +210,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Establish TypeScript/Rollup builds, Sass compilation, linting, formatting, watch commands, and release-it tooling.
 
-[Unreleased]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0...HEAD
 [0.1.0]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/releases/tag/0.1.0
 [0.1.1]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/0.1.0...0.1.1
 [0.1.2]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/0.1.1...0.1.2
@@ -202,3 +222,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.1.2-beta.2]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.2-beta.1...1.1.2-beta.2
 [1.2.0-fork.1]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.2-beta.2...1.2.0-fork.1
 [1.2.0]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.1.1...1.2.0
+[Unreleased]: https://github.com/kitschpatrol/tweakpane-plugin-file-import/compare/1.2.0...HEAD
