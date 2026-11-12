@@ -101,6 +101,19 @@ describe('file input plugin', () => {
 		expect(document.head.textContent).toContain('.tp-ctnv')
 	})
 
+	it('spaces its delete button without moving other Tweakpane buttons', () => {
+		const { button, pane: currentPane } = setup()
+		const otherButton = currentPane.addButton({ title: 'Other' }).element.querySelector('button')
+		if (!otherButton) {
+			throw new Error('The other button was not created')
+		}
+
+		// The delete button reuses the class of Tweakpane's own buttons
+		expect(otherButton.className).toBe(button.className)
+		expect(getComputedStyle(button).marginTop).toBe('10px')
+		expect(getComputedStyle(otherButton).marginTop).toBe('0px')
+	})
+
 	it('renders an empty drop area configured by its params', () => {
 		const { button, container, input, warning } = setup({
 			filetypes: ['.png', '.jpg'],
