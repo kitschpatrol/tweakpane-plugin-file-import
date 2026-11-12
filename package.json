@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/tweakpane-plugin-file-import",
-	"version": "1.2.0-fork.2",
+	"version": "1.2.0-fork.3",
 	"description": "Fork of tweakpane-plugin-file-import with build optimizations.",
 	"keywords": [
 		"npm-package",

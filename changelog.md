@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Clear the drag highlight even when processing a dropped file throws.
 - Render `invalidFiletypeMessage` as plain text so markup is displayed literally.
 - Type the exported `css` value as `string` instead of the build placeholder literal.
+- Scope delete-button spacing to the file input so other Tweakpane buttons no longer receive an extra top margin.
 
 ### Documentation
 
@@ -50,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integrate `chagent` into release version bumps and refresh GitHub release actions.
 - Build releases after versioning, remove the release script's test step, and remove the install-time `prepare` build hook.
 - Update pnpm to 12.18.0 and refresh the tsdown, Sass, Vite, and Vitest development dependencies.
+- Update the Sass and Vite development requirements to `^1.108.2` and `^8.3.8`.
 
 ## [1.2.0] - 2026-02-24
 
